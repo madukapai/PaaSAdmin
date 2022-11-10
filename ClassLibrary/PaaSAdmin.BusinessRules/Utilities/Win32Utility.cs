@@ -58,5 +58,24 @@ namespace PaaSAdmin.BusinessRules.Utilities
 
             return blIsSuccess;
         }
+
+        /// <summary>
+        /// 刪除帳號的動作
+        /// </summary>
+        /// <param name="strAccount"></param>
+        /// <returns></returns>
+        internal bool DeleteAccount(string strAccount)
+        {
+            bool blIsSuccess = false;
+
+            // 確認帳號是否存在
+            string strADPath = "WinNT://" + Environment.MachineName;
+            DirectoryEntry localDirectory = new DirectoryEntry(strADPath);
+            DirectoryEntries users = localDirectory.Children;
+            DirectoryEntry user = users.Find(strAccount);
+            users.Remove(user);
+
+            return blIsSuccess;
+        }
     }
 }

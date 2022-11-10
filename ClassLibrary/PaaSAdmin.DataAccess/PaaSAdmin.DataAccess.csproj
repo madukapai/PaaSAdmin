@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbUtility.cs" />
     <Compile Include="PaaSAdminDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

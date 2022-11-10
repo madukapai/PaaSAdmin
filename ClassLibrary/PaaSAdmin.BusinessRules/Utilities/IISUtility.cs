@@ -24,14 +24,6 @@ namespace PaaSAdmin.BusinessRules.Utilities
             bool blIsSuccess = true;
             bool blUseCustomAccount = false;
 
-            #region // 建立自訂的執行帳號
-            if (!string.IsNullOrEmpty(query.UserName) && !string.IsNullOrEmpty(query.UserPassword))
-            {
-                objWin32.CreateAccount(query.UserName, query.UserPassword, new List<string>() { "IIS_IUSRS" });
-                blUseCustomAccount = true;
-            }
-            #endregion
-
             #region // 建立應用程式集區
             bool blIsExits = objServerMng.ApplicationPools.Where(x => x.Name == query.WebSiteName).Any();
 

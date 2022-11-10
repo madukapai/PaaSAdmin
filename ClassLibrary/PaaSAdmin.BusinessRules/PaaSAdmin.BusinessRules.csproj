@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Console, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Console.4.0.0\lib\net46\System.Console.dll</HintPath>
       <Private>True</Private>
@@ -204,7 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\DbUtility.cs" />
     <Compile Include="Utilities\FtpUtility.cs" />
     <Compile Include="Utilities\IISUtility.cs" />
     <Compile Include="Utilities\Win32Utility.cs" />
