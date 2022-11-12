@@ -13,11 +13,11 @@ function funExecLogin(strUsername, strPassword)
 }
 
 function funLoginSuccess(data) {
-    if (data.IsSuccess) {
-        setCookies("UserId", data.Body.UserId, 7);
+    if (data.isSuccess) {
+        setCookies("UserId", data.body.UserId, 7);
 
         // 寫入localStorage
-        localStorage.setItem("UserInfo", JSON.stringify(data.Body));
+        localStorage.setItem("UserInfo", JSON.stringify(data.body));
 
         // 載入System與Menu選項
         funListMenu("main.html");
@@ -31,7 +31,7 @@ function funGetSystemNameToStorage() {
     var strUrl = `${constGetConfigUrl}?query.ConfigName=SystemName`;
     callAPI(strUrl, "GET", "",
         function (x) {
-            var strSystemName = (x.IsSuccess) ? x.Body.ConfigValue : "";
+            var strSystemName = (x.isSuccess) ? x.body.ConfigValue : "";
             localStorage.setItem("SystemName", strSystemName);
 
             $("#spanSystemName").html(strSystemName);

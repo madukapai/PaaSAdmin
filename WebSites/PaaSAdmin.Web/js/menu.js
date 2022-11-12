@@ -11,9 +11,9 @@
 
 function funListMenuSuccess(data, url)
 {
-    if (data.IsSuccess == true) {
+    if (data.isSuccess == true) {
         // 寫入選單項目到LocalStorage
-        localStorage.setItem("Menu", JSON.stringify(data.Body));
+        localStorage.setItem("Menu", JSON.stringify(data.body));
         // 轉頁到主頁
         location.href = url;
     }

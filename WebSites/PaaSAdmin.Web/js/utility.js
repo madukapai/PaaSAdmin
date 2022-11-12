@@ -1,22 +1,8 @@
 ﻿/// 呼叫API的動作
 function callAPI(strUrl, strMethod, strContent, onSuccess, onFail) {
-    var data;
-    if (strContent != "") {
-        // 先把資料parse回物件
-        data = JSON.parse(strContent);
-        // 加入callUrl與callMethod的屬性再轉回內容字串
-        data._callUrl = strUrl;
-        data._callMethod = strMethod;
-        strContent = JSON.stringify(data);
-    }
-    else {
-        data = { _callUrl: strUrl, _callMethod: strMethod };
-        strContent = JSON.stringify(data);
-    }
-
     $.ajax({
-        type: "POST",
-        url: "/api/Redirect/ApiRecall",
+        type: strMethod,
+        url: strUrl,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: strContent,

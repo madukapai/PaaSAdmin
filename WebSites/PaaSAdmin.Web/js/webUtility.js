@@ -158,7 +158,7 @@ function funGetUnreadCount() {
 }
 
 function funGetUnreadCountSuccess(data) {
-    if (data.IsSuccess) {
+    if (data.isSuccess) {
         if (data.Body != "0") {
             if (_intMessageCount != parseInt(data.Body)) {
                 $("#spanMailCount").html(data.Body);
@@ -179,7 +179,7 @@ function funListUnreadMail() {
 }
 
 function funListUnreadMailSuccess(data) {
-    if (data.IsSuccess) {
+    if (data.isSuccess) {
         var divMessage = $("#divTitleMessage");
         divMessage.empty();
 
