@@ -93,16 +93,7 @@ namespace PaaSAdmin.BusinessRules.Utilities
         /// <returns></returns>
         internal bool UpdateWebSite(WebSitesModels.UpdateWebSitesQuery query)
         {
-            bool blIsSuccess = false;
-            bool blUseCustomAccount = false;
-
-            #region // 建立自訂的執行帳號
-            if (!string.IsNullOrEmpty(query.UserName) && !string.IsNullOrEmpty(query.UserPassword))
-            {
-                objWin32.CreateAccount(query.UserName, query.UserPassword, new List<string>() { "IIS_IUSRS" });
-                blUseCustomAccount = true;
-            }
-            #endregion
+            bool blIsSuccess = true;
 
             #region // 修改應用程式集區
             ApplicationPool objPool = objServerMng.ApplicationPools.Where(x => x.Name == query.WebSiteName).FirstOrDefault();
@@ -111,27 +102,6 @@ namespace PaaSAdmin.BusinessRules.Utilities
             {
                 objPool.ManagedRuntimeVersion = query.RuntimeVersion;
                 objPool.Enable32BitAppOnWin64 = query.IsEnable32Bit;
-                objPool.ManagedPipelineMode = ManagedPipelineMode.Integrated;
-
-                // 停用失敗保護
-                objPool.Failure.RapidFailProtectionMaxCrashes = 60;
-                objPool.Failure.RapidFailProtection = false;
-
-                // 設定閒置分鐘數
-                objPool.ProcessModel.IdleTimeout = TimeSpan.FromMinutes(60);
-                objPool.ProcessModel.IdleTimeoutAction = IdleTimeoutAction.Suspend;
-
-                // 指定識別方式，並指定帳號與密碼
-                if (blUseCustomAccount)
-                {
-                    objPool.ProcessModel.IdentityType = ProcessModelIdentityType.SpecificUser;
-                    objPool.ProcessModel.UserName = query.UserName;
-                    objPool.ProcessModel.Password = query.UserPassword;
-                }
-                else
-                {
-                    objPool.ProcessModel.IdentityType = ProcessModelIdentityType.ApplicationPoolIdentity;
-                }
 
                 // 清除回收時間
                 objPool.Recycling.PeriodicRestart.Time = TimeSpan.FromMinutes(query.RecycleMinutes);
@@ -154,6 +124,7 @@ namespace PaaSAdmin.BusinessRules.Utilities
                 var objBinding = mySite.Bindings.FirstOrDefault();
                 objBinding.Protocol = (query.Port == 443) ? "https" : "http";
                 objBinding.BindingInformation = strBindingInfo;
+                objServerMng.CommitChanges();
             }
             #endregion
 
@@ -171,6 +142,7 @@ namespace PaaSAdmin.BusinessRules.Utilities
 
             objServerMng.ApplicationPools.Remove(objServerMng.ApplicationPools.Where(x => x.Name == strWebSite).FirstOrDefault());
             objServerMng.Sites.Remove(objServerMng.Sites.Where(x => x.Name == strWebSite).FirstOrDefault());
+            objServerMng.CommitChanges();
 
             return blIsSuccess;
         }

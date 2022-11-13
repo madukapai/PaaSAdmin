@@ -54,7 +54,10 @@ namespace PaaSAdmin.BusinessRules.Utilities
             var app = objServerMng.Sites[strFtpSiteName].Applications[0];
             var objDir = app.VirtualDirectories.Where(x => x.Path == strPathName).FirstOrDefault();
             if (objDir != null)
+            {
                 app.VirtualDirectories.Remove(objDir);
+                objServerMng.CommitChanges();
+            }
 
             return blIsSuccess;
         }

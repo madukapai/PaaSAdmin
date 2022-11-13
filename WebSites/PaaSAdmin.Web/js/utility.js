@@ -356,3 +356,17 @@ function funGetRoleName(strRoleName) {
     }
     return strRoleName;
 }
+
+function funParseParamUrl(url, obj) {
+    var i = 0
+    for (var key in obj) {
+        var val = ''
+        if (obj[key] != null && typeof (obj[key]) != 'undefined') {
+            var val = obj[key];
+        }
+
+        url = url + (i == 0 ? "?" : "&") + key + "=" + val;
+        i++;
+    }
+    return url;
+}

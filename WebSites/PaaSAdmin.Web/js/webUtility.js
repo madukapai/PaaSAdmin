@@ -43,11 +43,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">`;
 
+                // 放入第三層選單
                 for (var t = 0; t < data[r].ListFunc[s].ListFunc.length; t++) {
-                    if (data[r].ListFunc[s].ListFunc[t].DbConfig == "")
-                        strContent += `<a class="dropdown-item " href="/${data[r].ListFunc[s].ListFunc[t].NavigateUrl}"><i class="${data[r].ListFunc[s].ListFunc[t].IconName}"></i>&nbsp;${data[r].ListFunc[s].ListFunc[t].FuncName}</a>`;
-                    else
-                        strContent += `<a class="dropdown-item " href="/Page/Auto/List.html?FuncId=${data[r].ListFunc[s].ListFunc[t].FuncId}"><i class="${data[r].ListFunc[s].ListFunc[t].IconName}"></i>&nbsp;${data[r].ListFunc[s].ListFunc[t].FuncName}</a>`;
+                    strContent += `<a class="dropdown-item " href="${data[r].ListFunc[s].ListFunc[t].NavigateUrl}"><i class="${data[r].ListFunc[s].ListFunc[t].IconName}"></i>&nbsp;${data[r].ListFunc[s].ListFunc[t].FuncName}</a>`;
                 }
 
                 strContent += `</div></li>`;
@@ -217,4 +215,36 @@ function funMarkAllIsReadMail() {
         "AccessToken": getCookies("AccessToken"),
     };
     callAPI(constMarkAllIsReadMailBoxUrl, "PUT", JSON.stringify(data), function () { $("#spanMailCount").empty(); $("#divTitleMessage").empty(); $("#divTitleMessage").append(`<a class="dropdown-item notification__all text-center" href="#"> 沒有新訊息 </a>`); }, null);
+}
+
+function funListDataFail() {
+    showCloseMessage("發生錯誤", "讀取資料失敗，請稍後再試", "Fail");
+}
+
+function funCreateDataSuccess(btns) {
+    showMessage("建立成功", "資料新增成功", btns);
+}
+
+function funCreateDataFail() {
+    showCloseMessage("發生錯誤", "資料新增失敗，請重新嘗試", "Fail");
+}
+
+function funGetDataFail() {
+    showCloseMessage("發生錯誤", "讀取資料失敗，請稍後再試", "Fail");
+}
+
+function funUpdateDataSuccess(btns) {
+    showMessage("修改成功", "資料修改成功", btns);
+}
+
+function funUpdateDataFail() {
+    showCloseMessage("發生錯誤", "資料修改失敗，請重新嘗試", "Fail");
+}
+
+function funDeleteDataSuccess(btns) {
+    showMessage("刪除成功", "資料刪除成功", btns);
+}
+
+function funDeleteDataFail() {
+    showCloseMessage("發生錯誤", "資料刪除失敗，請重新嘗試", "Fail");
 }

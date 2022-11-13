@@ -146,7 +146,7 @@ namespace PaaSAdmin.Models
             /// <summary>
             /// Port號
             /// </summary>
-            public int Port { get; set; }
+            public int? Port { get; set; }
             /// <summary>
             /// IP
             /// </summary>
@@ -170,15 +170,15 @@ namespace PaaSAdmin.Models
             /// <summary>
             /// 使用記憶體上限
             /// </summary>
-            public int MaxMemoryGB { get; set; }
+            public int? MaxMemoryGB { get; set; }
             /// <summary>
             /// 使用的執行緒上限
             /// </summary>
-            public int MaxInstance { get; set; }
+            public int? MaxInstance { get; set; }
             /// <summary>
             /// 回收分鐘數
             /// </summary>
-            public int RecycleMinutes { get; set; }
+            public int? RecycleMinutes { get; set; }
             /// <summary>
             /// .NET版本
             /// </summary>
@@ -186,7 +186,7 @@ namespace PaaSAdmin.Models
             /// <summary>
             /// 是否啟用32位元執行緒
             /// </summary>
-            public bool IsEnable32Bit { get; set; }
+            public bool? IsEnable32Bit { get; set; }
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace PaaSAdmin.Models
             /// <summary>
             /// 使用記憶體上限
             /// </summary>
-            public int MaxMemoryGB { get; set; }
+            public decimal MaxMemoryGB { get; set; }
             /// <summary>
             /// 使用的執行緒上限
             /// </summary>
@@ -307,7 +307,7 @@ namespace PaaSAdmin.Models
             /// <summary>
             /// 使用記憶體上限
             /// </summary>
-            public int MaxMemoryGB { get; set; }
+            public decimal MaxMemoryGB { get; set; }
             /// <summary>
             /// 使用的執行緒上限
             /// </summary>

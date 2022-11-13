@@ -16,6 +16,14 @@ namespace PaaSAdmin.BusinessRules
         FtpUtility objFtp = new FtpUtility();
         Win32Utility objWin32 = new Win32Utility();
         PaaSAdminDbEntities db = new PaaSAdminDbEntities();
+        string strWebSiteRootPath = System.Configuration.ConfigurationManager.AppSettings["WebSiteRootPath"].ToString();
+
+        public WebSites()
+        {
+            // 處理根目錄的字串
+            if (strWebSiteRootPath.Substring(strWebSiteRootPath.Length - 1, 1) == @"\")
+                strWebSiteRootPath = strWebSiteRootPath.Substring(0, strWebSiteRootPath.Length - 1);
+        }
 
         /// <summary>
         /// 建立新的站台
@@ -26,6 +34,10 @@ namespace PaaSAdmin.BusinessRules
         {
             BaseModels.BaseResult<bool> result = new BaseModels.BaseResult<bool>();
             bool blCreateIIS = false, blCreateFtp = false, blCreateUser = false;
+
+            // 實體路徑增加本機設定的根目錄
+            string strSourcePhysicalPath = query.PhysicalPath;
+            query.PhysicalPath = strWebSiteRootPath + query.PhysicalPath;
 
             // 建立實體目錄
             System.IO.Directory.CreateDirectory(query.PhysicalPath);
@@ -60,7 +72,7 @@ namespace PaaSAdmin.BusinessRules
                     IsEnable32Bit = query.IsEnable32Bit,
                     MaxInstance = query.MaxInstance,
                     MaxMemoryGB = query.MaxMemoryGB,
-                    PhysicalPath = query.PhysicalPath,
+                    PhysicalPath = strSourcePhysicalPath,
                     Port = query.Port,
                     Product = query.Product,
                     RecycleMinutes = query.RecycleMinutes,
@@ -85,7 +97,33 @@ namespace PaaSAdmin.BusinessRules
         /// <returns></returns>
         public BaseModels.BaseResult<bool> UpdateWebSites(WebSitesModels.UpdateWebSitesQuery query)
         {
-            throw new System.NotImplementedException();
+            BaseModels.BaseResult<bool> result = new BaseModels.BaseResult<bool>();
+
+            long intIISWebSitesId = long.Parse(query.IISWebSitesId);
+
+            PaaSWebSites data = db.PaaSWebSites.Where(x => x.IISWebSitesId == intIISWebSitesId).FirstOrDefault();
+
+            // 更新IIS設定
+            bool blIsSuccess = objIIS.UpdateWebSite(query);
+
+            // 寫入資料庫
+            if (blIsSuccess)
+            {
+                data.Domain = query.Domain;
+                data.IP = query.IP;
+                data.Port = query.Port;
+                data.IsEnable32Bit = query.IsEnable32Bit;
+                data.MaxInstance = query.MaxInstance;
+                data.MaxMemoryGB = query.MaxMemoryGB;
+                data.RecycleMinutes = query.RecycleMinutes;
+                data.RuntimeVersion = query.RuntimeVersion;
+
+                db.SaveChanges();
+            }
+
+            result.isSuccess = blIsSuccess;
+            result.body = result.isSuccess;
+            return result;
         }
 
         /// <summary>
@@ -95,8 +133,77 @@ namespace PaaSAdmin.BusinessRules
         /// <returns></returns>
         public BaseModels.PageResult<List<WebSitesModels.ListWebSitesResult>> ListWebSites(WebSitesModels.ListWebSitesQuery query)
         {
-            throw new System.NotImplementedException();
+            BaseModels.PageResult<List<WebSitesModels.ListWebSitesResult>> result = new BaseModels.PageResult<List<WebSitesModels.ListWebSitesResult>>()
+            {
+                Page = query.PageIndex,
+                PageSize = query.PageSize
+            };
 
+            var data = db.PaaSWebSites.AsQueryable();
+
+            if (!string.IsNullOrEmpty(query.IP))
+                data = data.Where(x => x.IP.Contains(query.IP));
+
+            if (!string.IsNullOrEmpty(query.Domain))
+                data = data.Where(x => x.Domain.Contains(query.Domain));
+
+            if (query.IsEnable32Bit.HasValue)
+                data = data.Where(x => x.IsEnable32Bit == query.IsEnable32Bit);
+
+            if (query.MaxInstance.HasValue)
+                data = data.Where(x => x.MaxInstance == query.MaxInstance);
+
+            if (query.MaxMemoryGB.HasValue)
+                data = data.Where(x => x.MaxMemoryGB == query.MaxMemoryGB);
+
+            if (!string.IsNullOrEmpty(query.PhysicalPath))
+                data = data.Where(x => x.PhysicalPath.Contains(query.PhysicalPath));
+
+            if (query.Port.HasValue)
+                data = data.Where(x => x.Port == query.Port);
+
+            if (!string.IsNullOrEmpty(query.Product))
+                data = data.Where(x => x.Product.Contains(query.Product));
+
+            if (query.RecycleMinutes.HasValue)
+                data = data.Where(x => x.RecycleMinutes == query.RecycleMinutes);
+
+            if (!string.IsNullOrEmpty(query.RuntimeVersion))
+                data = data.Where(x => x.RuntimeVersion.Contains(query.RuntimeVersion));
+
+            if (!string.IsNullOrEmpty(query.UserName))
+                data = data.Where(x => x.UserName.Contains(query.UserName));
+
+            if (!string.IsNullOrEmpty(query.WebSiteName))
+                data = data.Where(x => x.WebSiteName.Contains(query.WebSiteName));
+
+            // 處理排序的動作
+            if (!string.IsNullOrEmpty(query.Sort))
+                data = data.OrderByField(query.Sort, query.SortExpress);
+
+            // 處理分頁結束
+            result.Records = data.Count();
+            result.body = data.Skip(query.StartRowIndex)
+                              .Take(query.PageSize)
+                              .AsEnumerable()
+                              .Select(c => new WebSitesModels.ListWebSitesResult()
+                              {
+                                  Domain = c.Domain,
+                                  IISWebSitesId = c.IISWebSitesId.ToString(),
+                                  IP = c.IP,
+                                  IsEnable32Bit = c.IsEnable32Bit,
+                                  MaxInstance = c.MaxInstance,
+                                  MaxMemoryGB = c.MaxMemoryGB,
+                                  PhysicalPath = c.PhysicalPath.Replace(strWebSiteRootPath, ""),
+                                  Port = c.Port,
+                                  Product = c.Product,
+                                  RecycleMinutes = c.RecycleMinutes,
+                                  RuntimeVersion = c.RuntimeVersion,
+                                  UserName = c.UserName,
+                                  WebSiteName = c.WebSiteName,
+                              })
+                              .ToList();
+            return result;
         }
 
         /// <summary>
@@ -106,8 +213,31 @@ namespace PaaSAdmin.BusinessRules
         /// <returns></returns>
         public BaseModels.BaseResult<WebSitesModels.GetWebSitesResult> GetWebSites(WebSitesModels.GetWebSitesQuery query)
         {
-            throw new System.NotImplementedException();
+            BaseModels.BaseResult<WebSitesModels.GetWebSitesResult> result = new BaseModels.BaseResult<WebSitesModels.GetWebSitesResult>();
 
+            long intIISWebSitesId = long.Parse(query.IISWebSitesId);
+
+            result.body = db.PaaSWebSites.Where(x => x.IISWebSitesId == intIISWebSitesId)
+                                        .AsEnumerable()
+                                        .Select(c => new WebSitesModels.GetWebSitesResult()
+                                        {
+                                            Domain = c.Domain,
+                                            IISWebSitesId = c.IISWebSitesId.ToString(),
+                                            IP = c.IP,
+                                            IsEnable32Bit = c.IsEnable32Bit,
+                                            MaxInstance = c.MaxInstance,
+                                            MaxMemoryGB = c.MaxMemoryGB,
+                                            PhysicalPath = c.PhysicalPath.Replace(strWebSiteRootPath, ""),
+                                            Port = c.Port,
+                                            Product = c.Product,
+                                            RecycleMinutes = c.RecycleMinutes,
+                                            RuntimeVersion = c.RuntimeVersion,
+                                            UserName = c.UserName,
+                                            WebSiteName = c.WebSiteName,
+                                            UserPassword = c.UserPassword,
+                                        })
+                                        .FirstOrDefault();
+            return result;
         }
 
         /// <summary>
@@ -117,11 +247,36 @@ namespace PaaSAdmin.BusinessRules
         /// <returns></returns>
         public BaseModels.BaseResult<bool> DeleteWebSites(WebSitesModels.DeleteWebSitesQuery query)
         {
-            throw new System.NotImplementedException();
+            BaseModels.BaseResult<bool> result = new BaseModels.BaseResult<bool>();
 
-            //objIIS.DeleteWebSite(query.IISWebSitesId);
-            //objFtp.DeleteVirtualDirectory(query.UserName);
-            //objWin32.DeleteAccount(query.UserName);
+            // 找出資料
+            for (int i = 0; i < query.IISWebSitesId.Count; i++)
+            {
+                long intIISWebSitesId = long.Parse(query.IISWebSitesId[i]);
+                var data = db.PaaSWebSites.Where(x => x.IISWebSitesId == intIISWebSitesId).FirstOrDefault();
+
+                if (data != null)
+                {
+                    // 刪除帳號
+                    objWin32.DeleteAccount(data.UserName);
+
+                    // 刪除站台
+                    objIIS.DeleteWebSite(data.WebSiteName);
+
+                    // 刪除Ftp
+                    objFtp.DeleteVirtualDirectory(data.UserName);
+
+                    // 刪除實體路徑
+                    System.IO.Directory.Delete(strWebSiteRootPath + data.PhysicalPath);
+
+                    // 刪除資料
+                    db.PaaSWebSites.Remove(data);
+                    db.SaveChanges();
+                }
+            }
+
+            result.body = result.isSuccess;
+            return result;
         }
     }
 }

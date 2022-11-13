@@ -33,19 +33,19 @@ namespace PaaSAdmin.BusinessRules
                             Seq = 1,
                             ListFunc = new List<MenuModels.ListSystemMenuResult.MenuItem>()
                             {
-                                new MenuModels.ListSystemMenuResult.MenuItem(){FuncName = "IIS站台管理", NavigateUrl = "/Application/WebList.html", IconName = "fas fa-tasks", Seq = 1 },
-                                new MenuModels.ListSystemMenuResult.MenuItem(){FuncName = "FTP站台管理", NavigateUrl = "/Application/FtpList.html", IconName = "fas fa-tasks", Seq = 2 }
+                                new MenuModels.ListSystemMenuResult.MenuItem(){FuncName = "IIS站台管理", NavigateUrl = "/Page/Application/WebSitesList.html", IconName = "fas fa-globe", Seq = 1 },
+                                new MenuModels.ListSystemMenuResult.MenuItem(){FuncName = "FTP站台管理", NavigateUrl = "/Page/Application/FtpSitesList.html", IconName = "fas fa-file", Seq = 2 }
                             }
                         },
 
                         new MenuModels.ListSystemMenuResult.MenuItem(){
                             FuncName = "資料庫管理",
                             NavigateUrl = "",
-                            IconName = "fas fa-tasks",
+                            IconName = "fas fa-server",
                             Seq = 2,
                             ListFunc = new List<MenuModels.ListSystemMenuResult.MenuItem>()
                             {
-                                new MenuModels.ListSystemMenuResult.MenuItem(){FuncName = "IIS站台管理", NavigateUrl = "/WebSite/List.html", IconName = "fas fa-tasks", Seq = 1 }
+                                new MenuModels.ListSystemMenuResult.MenuItem(){FuncName = "Microsoft SQL Server", NavigateUrl = "/Page/Database/SQLList.html", IconName = "fas fa-database", Seq = 1 }
                             }
                         }
                     }
