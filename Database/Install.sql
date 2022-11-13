@@ -24,3 +24,24 @@ CREATE TABLE PaaSWebSites (
  ,CONSTRAINT PK_PaaSWebSites_IISWebSitesId PRIMARY KEY CLUSTERED (IISWebSitesId)
 )
 GO
+
+
+CREATE TABLE PaaSConfig (
+  ConfigId int NOT NULL,
+  ConfigName nvarchar(max) NOT NULL,
+  ConfigValue nvarchar(max) NOT NULL,
+  Description nvarchar(max) NOT NULL,
+  CONSTRAINT PK_PaaS_Config PRIMARY KEY CLUSTERED (ConfigId)
+)
+GO
+
+
+CREATE SEQUENCE ConfigId
+AS BIGINT
+START WITH 0
+INCREMENT BY 1
+NO CYCLE
+NO CACHE
+GO
+
+INSERT INTO PaaSConfig VALUES (0, 'SystemName', 'PaaS Admin', '');

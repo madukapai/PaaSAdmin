@@ -69,6 +69,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PaaSAdminDb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PaaSConfig.cs">
+      <DependentUpon>PaaSAdminDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="PaaSWebSites.cs">
       <DependentUpon>PaaSAdminDb.tt</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using PaaSAdmin.Models;
+﻿using PaaSAdmin.DataAccess;
+using PaaSAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace PaaSAdmin.BusinessRules
 {
     public class ConfigInfo
     {
+        PaaSAdminDbEntities db = new PaaSAdminDbEntities();
+
         /// <summary>
         /// 取得設定值
         /// </summary>
@@ -18,12 +21,9 @@ namespace PaaSAdmin.BusinessRules
         {
             BaseModels.BaseResult<ConfigModels.GetConfigValueResult> result = new BaseModels.BaseResult<ConfigModels.GetConfigValueResult>();
 
-            // TODO:待處理
-            result.body = new ConfigModels.GetConfigValueResult()
-            {
-                ConfigValue = ""
-            };
+            string strValue = db.PaaSConfig.Where(x => x.ConfigName == query.ConfigName).Select(c => c.ConfigValue).FirstOrDefault() ?? "";
 
+            result.body = new ConfigModels.GetConfigValueResult() { ConfigValue = strValue };
 
             return result;
         }

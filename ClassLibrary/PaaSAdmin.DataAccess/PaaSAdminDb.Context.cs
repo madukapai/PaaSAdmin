@@ -26,5 +26,6 @@ namespace PaaSAdmin.DataAccess
         }
     
         public virtual DbSet<PaaSWebSites> PaaSWebSites { get; set; }
+        public virtual DbSet<PaaSConfig> PaaSConfig { get; set; }
     }
 }
