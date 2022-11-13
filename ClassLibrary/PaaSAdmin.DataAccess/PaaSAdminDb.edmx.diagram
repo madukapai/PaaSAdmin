@@ -5,8 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b9fec1d26a4a4eb9ace29c3de55a9e21" Name="Diagram1">
-        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSWebSites" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSConfig" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSWebSites" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSConfig" Width="1.5" PointX="2.125" PointY="0.5" />
+        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSDeviceHealth" Width="1.5" PointX="2.125" PointY="5.75" />
+        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSDeviceHealthApp" Width="1.5" PointX="3.75" PointY="5.75" />
+        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSDeviceHealthCpu" Width="1.5" PointX="0.5" PointY="5.75" />
+        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSDeviceHealthDisk" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="PaaSAdminDbModel.PaaSDeviceHealthMemory" Width="1.5" PointX="7" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

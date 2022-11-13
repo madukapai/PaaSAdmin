@@ -14,6 +14,60 @@
           <Property Name="ConfigValue" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="PaaSDeviceHealth">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthId" Type="bigint" Nullable="false" />
+          <Property Name="ReportUtcDateTime" Type="datetime" Nullable="false" />
+          <Property Name="CpuUsagePercent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="MemoryUsagePercent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="MemoryTotalGB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="MemoryUsageGB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="DiskUsagePercent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthApp">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthAppId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthAppId" Type="bigint" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="bigint" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+          <Property Name="ApplicationPool" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CpuUsagePercent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="MemoryUsageMB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthCpu">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthCpuId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthCpuId" Type="bigint" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="bigint" Nullable="false" />
+          <Property Name="Core" Type="int" Nullable="false" />
+          <Property Name="CpuUsagePercent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthDisk">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthDiskId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthDiskId" Type="bigint" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="bigint" Nullable="false" />
+          <Property Name="PhysicalName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DriveName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DriveFormat" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="TotalGB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="UsageGB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="FreeGB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthMemory">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthMemoryId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthMemoryId" Type="bigint" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="bigint" Nullable="false" />
+          <Property Name="TotalGB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="UsageGB" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="PaaSWebSites">
           <Key>
             <PropertyRef Name="IISWebSitesId" />
@@ -35,6 +89,11 @@
         </EntityType>
         <EntityContainer Name="PaaSAdminDbModelStoreContainer">
           <EntitySet Name="PaaSConfig" EntityType="Self.PaaSConfig" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaaSDeviceHealth" EntityType="Self.PaaSDeviceHealth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaaSDeviceHealthApp" EntityType="Self.PaaSDeviceHealthApp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaaSDeviceHealthCpu" EntityType="Self.PaaSDeviceHealthCpu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaaSDeviceHealthDisk" EntityType="Self.PaaSDeviceHealthDisk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaaSDeviceHealthMemory" EntityType="Self.PaaSDeviceHealthMemory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaaSWebSites" EntityType="Self.PaaSWebSites" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -63,6 +122,11 @@
         <EntityContainer Name="PaaSAdminDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PaaSWebSites" EntityType="Self.PaaSWebSites" />
           <EntitySet Name="PaaSConfig" EntityType="PaaSAdminDbModel.PaaSConfig" />
+          <EntitySet Name="PaaSDeviceHealth" EntityType="PaaSAdminDbModel.PaaSDeviceHealth" />
+          <EntitySet Name="PaaSDeviceHealthApp" EntityType="PaaSAdminDbModel.PaaSDeviceHealthApp" />
+          <EntitySet Name="PaaSDeviceHealthCpu" EntityType="PaaSAdminDbModel.PaaSDeviceHealthCpu" />
+          <EntitySet Name="PaaSDeviceHealthDisk" EntityType="PaaSAdminDbModel.PaaSDeviceHealthDisk" />
+          <EntitySet Name="PaaSDeviceHealthMemory" EntityType="PaaSAdminDbModel.PaaSDeviceHealthMemory" />
         </EntityContainer>
         <EntityType Name="PaaSConfig">
           <Key>
@@ -72,6 +136,60 @@
           <Property Name="ConfigName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ConfigValue" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealth">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthId" Type="Int64" Nullable="false" />
+          <Property Name="ReportUtcDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CpuUsagePercent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="MemoryUsagePercent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="MemoryTotalGB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="MemoryUsageGB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="DiskUsagePercent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthApp">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthAppId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthAppId" Type="Int64" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="Int64" Nullable="false" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationPool" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CpuUsagePercent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="MemoryUsageMB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthCpu">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthCpuId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthCpuId" Type="Int64" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="Int64" Nullable="false" />
+          <Property Name="Core" Type="Int32" Nullable="false" />
+          <Property Name="CpuUsagePercent" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthDisk">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthDiskId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthDiskId" Type="Int64" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="Int64" Nullable="false" />
+          <Property Name="PhysicalName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriveName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DriveFormat" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TotalGB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="UsageGB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="FreeGB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="PaaSDeviceHealthMemory">
+          <Key>
+            <PropertyRef Name="PaaSDeviceHealthMemoryId" />
+          </Key>
+          <Property Name="PaaSDeviceHealthMemoryId" Type="Int64" Nullable="false" />
+          <Property Name="PaaSDeviceHealthId" Type="Int64" Nullable="false" />
+          <Property Name="TotalGB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="UsageGB" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -106,6 +224,65 @@
                 <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
                 <ScalarProperty Name="ConfigName" ColumnName="ConfigName" />
                 <ScalarProperty Name="ConfigId" ColumnName="ConfigId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaaSDeviceHealth">
+            <EntityTypeMapping TypeName="PaaSAdminDbModel.PaaSDeviceHealth">
+              <MappingFragment StoreEntitySet="PaaSDeviceHealth">
+                <ScalarProperty Name="DiskUsagePercent" ColumnName="DiskUsagePercent" />
+                <ScalarProperty Name="MemoryUsageGB" ColumnName="MemoryUsageGB" />
+                <ScalarProperty Name="MemoryTotalGB" ColumnName="MemoryTotalGB" />
+                <ScalarProperty Name="MemoryUsagePercent" ColumnName="MemoryUsagePercent" />
+                <ScalarProperty Name="CpuUsagePercent" ColumnName="CpuUsagePercent" />
+                <ScalarProperty Name="ReportUtcDateTime" ColumnName="ReportUtcDateTime" />
+                <ScalarProperty Name="PaaSDeviceHealthId" ColumnName="PaaSDeviceHealthId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaaSDeviceHealthApp">
+            <EntityTypeMapping TypeName="PaaSAdminDbModel.PaaSDeviceHealthApp">
+              <MappingFragment StoreEntitySet="PaaSDeviceHealthApp">
+                <ScalarProperty Name="MemoryUsageMB" ColumnName="MemoryUsageMB" />
+                <ScalarProperty Name="CpuUsagePercent" ColumnName="CpuUsagePercent" />
+                <ScalarProperty Name="ApplicationPool" ColumnName="ApplicationPool" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="PaaSDeviceHealthId" ColumnName="PaaSDeviceHealthId" />
+                <ScalarProperty Name="PaaSDeviceHealthAppId" ColumnName="PaaSDeviceHealthAppId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaaSDeviceHealthCpu">
+            <EntityTypeMapping TypeName="PaaSAdminDbModel.PaaSDeviceHealthCpu">
+              <MappingFragment StoreEntitySet="PaaSDeviceHealthCpu">
+                <ScalarProperty Name="CpuUsagePercent" ColumnName="CpuUsagePercent" />
+                <ScalarProperty Name="Core" ColumnName="Core" />
+                <ScalarProperty Name="PaaSDeviceHealthId" ColumnName="PaaSDeviceHealthId" />
+                <ScalarProperty Name="PaaSDeviceHealthCpuId" ColumnName="PaaSDeviceHealthCpuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaaSDeviceHealthDisk">
+            <EntityTypeMapping TypeName="PaaSAdminDbModel.PaaSDeviceHealthDisk">
+              <MappingFragment StoreEntitySet="PaaSDeviceHealthDisk">
+                <ScalarProperty Name="FreeGB" ColumnName="FreeGB" />
+                <ScalarProperty Name="UsageGB" ColumnName="UsageGB" />
+                <ScalarProperty Name="TotalGB" ColumnName="TotalGB" />
+                <ScalarProperty Name="DriveFormat" ColumnName="DriveFormat" />
+                <ScalarProperty Name="DriveName" ColumnName="DriveName" />
+                <ScalarProperty Name="PhysicalName" ColumnName="PhysicalName" />
+                <ScalarProperty Name="PaaSDeviceHealthId" ColumnName="PaaSDeviceHealthId" />
+                <ScalarProperty Name="PaaSDeviceHealthDiskId" ColumnName="PaaSDeviceHealthDiskId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaaSDeviceHealthMemory">
+            <EntityTypeMapping TypeName="PaaSAdminDbModel.PaaSDeviceHealthMemory">
+              <MappingFragment StoreEntitySet="PaaSDeviceHealthMemory">
+                <ScalarProperty Name="UsageGB" ColumnName="UsageGB" />
+                <ScalarProperty Name="TotalGB" ColumnName="TotalGB" />
+                <ScalarProperty Name="PaaSDeviceHealthId" ColumnName="PaaSDeviceHealthId" />
+                <ScalarProperty Name="PaaSDeviceHealthMemoryId" ColumnName="PaaSDeviceHealthMemoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

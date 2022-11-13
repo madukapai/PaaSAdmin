@@ -72,6 +72,21 @@
     <Compile Include="PaaSConfig.cs">
       <DependentUpon>PaaSAdminDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="PaaSDeviceHealth.cs">
+      <DependentUpon>PaaSAdminDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaaSDeviceHealthApp.cs">
+      <DependentUpon>PaaSAdminDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaaSDeviceHealthCpu.cs">
+      <DependentUpon>PaaSAdminDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaaSDeviceHealthDisk.cs">
+      <DependentUpon>PaaSAdminDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaaSDeviceHealthMemory.cs">
+      <DependentUpon>PaaSAdminDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="PaaSWebSites.cs">
       <DependentUpon>PaaSAdminDb.tt</DependentUpon>
     </Compile>
