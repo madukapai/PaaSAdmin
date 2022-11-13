@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaaSAdmin.Service", "Job\Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaaSAdmin.ServiceApp", "Job\PaaSAdmin.ServiceApp\PaaSAdmin.ServiceApp.csproj", "{90937C33-13C8-4F67-B76E-6C45EC060417}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaaSAdmin.Service.Utility", "Job\PaaSAdmin.Service.Utility\PaaSAdmin.Service.Utility.csproj", "{28C5AA91-993A-49BD-B0ED-7CCE3CF199BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{90937C33-13C8-4F67-B76E-6C45EC060417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90937C33-13C8-4F67-B76E-6C45EC060417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90937C33-13C8-4F67-B76E-6C45EC060417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28C5AA91-993A-49BD-B0ED-7CCE3CF199BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C5AA91-993A-49BD-B0ED-7CCE3CF199BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C5AA91-993A-49BD-B0ED-7CCE3CF199BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C5AA91-993A-49BD-B0ED-7CCE3CF199BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{E6699E66-A990-4FB7-B450-2A950CD79281} = {BE48FBBB-3E21-4FFA-8AE9-1E3CA0D16CD4}
 		{EA80CDC8-6B9B-492A-8987-12CE93819D4B} = {7663F284-DAE7-441E-92DC-CF6A05241ABF}
 		{90937C33-13C8-4F67-B76E-6C45EC060417} = {7663F284-DAE7-441E-92DC-CF6A05241ABF}
+		{28C5AA91-993A-49BD-B0ED-7CCE3CF199BF} = {7663F284-DAE7-441E-92DC-CF6A05241ABF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {881382C6-63FF-4245-BA8F-272F63332EB5}

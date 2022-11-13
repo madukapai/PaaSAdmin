@@ -10,6 +10,10 @@ namespace PaaSAdmin.ServiceApp
     {
         static void Main(string[] args)
         {
+            bool blIsSuccess = new Service.Utility.Utility().UploadHealth();
+            Console.WriteLine(blIsSuccess);
+
+            Console.ReadKey();
         }
     }
 }
