@@ -7,6 +7,7 @@ using PaaSAdmin.Code;
 using PaaSAdmin.Models;
 using PaaSAdmin.BusinessRules.Utilities;
 using PaaSAdmin.DataAccess;
+using PaaSAdmin.Common;
 
 namespace PaaSAdmin.BusinessRules
 {
@@ -99,7 +100,7 @@ namespace PaaSAdmin.BusinessRules
         {
             BaseModels.BaseResult<bool> result = new BaseModels.BaseResult<bool>();
 
-            long intIISWebSitesId = long.Parse(query.IISWebSitesId);
+            long intIISWebSitesId = query.IISWebSitesId.ToBigIntDecode();
 
             PaaSWebSites data = db.PaaSWebSites.Where(x => x.IISWebSitesId == intIISWebSitesId).FirstOrDefault();
 
@@ -189,12 +190,12 @@ namespace PaaSAdmin.BusinessRules
                               .Select(c => new WebSitesModels.ListWebSitesResult()
                               {
                                   Domain = c.Domain,
-                                  IISWebSitesId = c.IISWebSitesId.ToString(),
+                                  IISWebSitesId = c.IISWebSitesId.ToEncode(),
                                   IP = c.IP,
                                   IsEnable32Bit = c.IsEnable32Bit,
                                   MaxInstance = c.MaxInstance,
                                   MaxMemoryGB = c.MaxMemoryGB,
-                                  PhysicalPath = c.PhysicalPath.Replace(strWebSiteRootPath, ""),
+                                  PhysicalPath = c.PhysicalPath,
                                   Port = c.Port,
                                   Product = c.Product,
                                   RecycleMinutes = c.RecycleMinutes,
@@ -215,19 +216,19 @@ namespace PaaSAdmin.BusinessRules
         {
             BaseModels.BaseResult<WebSitesModels.GetWebSitesResult> result = new BaseModels.BaseResult<WebSitesModels.GetWebSitesResult>();
 
-            long intIISWebSitesId = long.Parse(query.IISWebSitesId);
+            long intIISWebSitesId = query.IISWebSitesId.ToBigIntDecode();
 
             result.body = db.PaaSWebSites.Where(x => x.IISWebSitesId == intIISWebSitesId)
                                         .AsEnumerable()
                                         .Select(c => new WebSitesModels.GetWebSitesResult()
                                         {
                                             Domain = c.Domain,
-                                            IISWebSitesId = c.IISWebSitesId.ToString(),
+                                            IISWebSitesId = c.IISWebSitesId.ToEncode(),
                                             IP = c.IP,
                                             IsEnable32Bit = c.IsEnable32Bit,
                                             MaxInstance = c.MaxInstance,
                                             MaxMemoryGB = c.MaxMemoryGB,
-                                            PhysicalPath = c.PhysicalPath.Replace(strWebSiteRootPath, ""),
+                                            PhysicalPath = c.PhysicalPath,
                                             Port = c.Port,
                                             Product = c.Product,
                                             RecycleMinutes = c.RecycleMinutes,
@@ -252,7 +253,7 @@ namespace PaaSAdmin.BusinessRules
             // 找出資料
             for (int i = 0; i < query.IISWebSitesId.Count; i++)
             {
-                long intIISWebSitesId = long.Parse(query.IISWebSitesId[i]);
+                long intIISWebSitesId = query.IISWebSitesId[i].ToBigIntDecode();
                 var data = db.PaaSWebSites.Where(x => x.IISWebSitesId == intIISWebSitesId).FirstOrDefault();
 
                 if (data != null)
