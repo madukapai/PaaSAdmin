@@ -36,6 +36,27 @@ namespace PaaSAdmin.BusinessRules
             BaseModels.BaseResult<bool> result = new BaseModels.BaseResult<bool>();
             bool blCreateIIS = false, blCreateFtp = false, blCreateUser = false;
 
+            // 確認站台是否重覆
+            bool blWebSiteIsExits = db.PaaSWebSites.Where(x => x.WebSiteName == query.WebSiteName).Any();
+            string strBinding = query.IP + ":" + query.Port + ":" + query.Domain;
+            bool blBindingIsExits = db.PaaSWebSites.Where(x => x.IP + ":" + x.Port + ":" + x.Domain == strBinding).Any();
+            
+            if (blWebSiteIsExits)
+            {
+                result.isSuccess = false;
+                result.body = false;
+                result.response = Code.Common.WebSiteIsExits;
+                return result;
+            }
+
+            if (blBindingIsExits)
+            {
+                result.isSuccess = false;
+                result.body = false;
+                result.response = Code.Common.BindingIsExits;
+                return result;
+            }
+
             // 實體路徑增加本機設定的根目錄
             string strSourcePhysicalPath = query.PhysicalPath;
             query.PhysicalPath = strWebSiteRootPath + query.PhysicalPath;
@@ -101,6 +122,19 @@ namespace PaaSAdmin.BusinessRules
             BaseModels.BaseResult<bool> result = new BaseModels.BaseResult<bool>();
 
             long intIISWebSitesId = query.IISWebSitesId.ToBigIntDecode();
+
+            // 確認站台是否重覆
+            string strBinding = query.IP + ":" + query.Port + ":" + query.Domain;
+            bool blBindingIsExits = db.PaaSWebSites.Where(x => x.IISWebSitesId != intIISWebSitesId)
+                                                   .Where(x => x.IP + ":" + x.Port + ":" + x.Domain == strBinding)
+                                                   .Any();
+            if (blBindingIsExits)
+            {
+                result.isSuccess = false;
+                result.body = false;
+                result.response = Code.Common.BindingIsExits;
+                return result;
+            }
 
             PaaSWebSites data = db.PaaSWebSites.Where(x => x.IISWebSitesId == intIISWebSitesId).FirstOrDefault();
 

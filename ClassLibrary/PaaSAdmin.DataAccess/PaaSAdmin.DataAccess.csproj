@@ -87,6 +87,9 @@
     <Compile Include="PaaSDeviceHealthMemory.cs">
       <DependentUpon>PaaSAdminDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="PaaSFtpSites.cs">
+      <DependentUpon>PaaSAdminDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="PaaSWebSites.cs">
       <DependentUpon>PaaSAdminDb.tt</DependentUpon>
     </Compile>

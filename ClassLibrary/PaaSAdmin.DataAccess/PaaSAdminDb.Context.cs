@@ -32,5 +32,6 @@ namespace PaaSAdmin.DataAccess
         public virtual DbSet<PaaSDeviceHealthCpu> PaaSDeviceHealthCpu { get; set; }
         public virtual DbSet<PaaSDeviceHealthDisk> PaaSDeviceHealthDisk { get; set; }
         public virtual DbSet<PaaSDeviceHealthMemory> PaaSDeviceHealthMemory { get; set; }
+        public virtual DbSet<PaaSFtpSites> PaaSFtpSites { get; set; }
     }
 }

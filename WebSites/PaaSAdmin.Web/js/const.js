@@ -9,3 +9,9 @@ var constCreateWebSitesUrl = "/api/WebSites/CreateWebSites";
 var constGetWebSitesUrl = "/api/WebSites/GetWebSites";
 var constUpdateWebSitesUrl = "/api/WebSites/UpdateWebSites";
 var constDeleteWebSitesUrl = "/api/WebSites/DeleteWebSites";
+
+// FtpSites
+var constListFtpSitesUrl = "/api/FtpSites/ListFtpSites";
+var constCreateFtpSitesUrl = "/api/FtpSites/CreateFtpSites";
+var constGetFtpSitesUrl = "/api/FtpSites/GetFtpSites";
+var constDeleteFtpSitesUrl = "/api/FtpSites/DeleteFtpSites";

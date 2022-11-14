@@ -21,25 +21,30 @@
         if (data.isSuccess) {
             var tbData = $("#tbData");
             tbData.empty();
+            var strContent = "";
+
             for (var i = 0; i < data.body.length; i++) {
-                tbData.append(`<tr>
+                strContent += `<tr>
                 <td>${data.body[i].WebSiteName}</td>
                 <td>${data.body[i].Product}</td>
                 <td>${data.body[i].IP}</td>
                 <td>${data.body[i].Port}</td>
                 <td>${data.body[i].Domain}</td>
-                <td>
-                    <div class="btn-group btn-group-sm" System="group" aria-label="Table row actions">
+                <td>`;
+                if (data.body[i].WebSiteName != "PaaSAdmin") {
+                    strContent +=`<div class="btn-group btn-group-sm" System="group" aria-label="Table row actions">
                         <button type="button" class="btn btn-white" onclick="javascript:location.href='WebSitesEdit.html?IISWebSitesId=${data.body[i].IISWebSitesId}';">
                             <i class="fas fa-pen"></i>
                         </button>
                         <button type="button" class="btn btn-white" onclick="javascript:new WebSites().DeleteWebSites('${data.body[i].IISWebSitesId}');">
                             <i class="fas fa-trash"></i>
                         </button>
-                    </div>
-                </td>
-            </tr>`);
+                    </div>`;
+                }
+                strContent += `</td>
+                </tr>`;
             }
+            tbData.append(strContent);
 
             $("#divData").show();
         }
@@ -75,7 +80,12 @@
             funCreateDataSuccess(btns);
         }
         else {
-            funCreateDataFail();
+            if (data.message == "WebSiteIsExits")
+                showCloseMessage("發生錯誤", "相同的站台已存在", "Fail");
+            else if (data.message == "BindingIsExits")
+                showCloseMessage("發生錯誤", "相同的繫結設定已存在", "Fail");
+            else
+                funCreateDataFail();
         }
     }
     // #endregion
@@ -136,7 +146,10 @@
             funUpdateDataSuccess(btns);
         }
         else {
-            funUpdateDataFail();
+            if (data.message == "BindingIsExits")
+                showCloseMessage("發生錯誤", "相同的繫結設定已存在", "Fail");
+            else
+                funCreateDataFail();
         }
     }
     // #endregion

@@ -1,0 +1,91 @@
+﻿<!doctype html>
+<html class="no-js h-100" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>maduka.DMS</title>
+    <meta name="description" content="A premium collection of beautiful hand-crafted Bootstrap 4 admin dashboard templates and dozens of custom components built for data-driven applications.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <link href="/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.3.1" href="/styles/shards-dashboards.1.3.1.min.css">
+    <link rel="stylesheet" href="/styles/extras.1.3.1.min.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="h-100">
+    <div id="page-header"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="page-menu"></div>
+            <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+                <div id="page-title"></div>
+                <div class="main-content-container container-fluid px-4" id="divContent" style="display:none">
+                    <!-- 以上是Template固定區塊-->
+
+                    <div class="page-header row no-gutters py-4 mb-3 border-bottom">
+                        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                            <span class="text-uppercase page-subtitle">應用程式管理</span>
+                            <h3 class="page-title">Ftp站台管理</h3>
+                        </div>
+                    </div>
+
+                    <div class="card card-small">
+                        <div class="card-header border-bottom">
+                            <h6 class="m-0">Ftp站台管理修改</h6>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item p-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="Product">對應產品</label>
+                                                <input type="text" class="form-control" id="Product" disabled="disabled" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="PhysicalPath">實體路徑</label>
+                                                <input type="text" class="form-control" id="PhysicalPath" disabled="disabled" />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="UserName">登入帳號</label>
+                                                <input type="text" class="form-control" id="UserName" disabled="disabled"  />
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="UserPassword">登入密碼</label>
+                                                <input type="text" class="form-control" id="UserPassword" disabled="disabled"  />
+                                            </div>
+                                        </div>
+                                        <button type="button" class="mb-2 btn btn-outline-success mr-2" onclick="javascript: location.href = 'FtpSitesList.html';">Cancel</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 以下是Template固定區塊-->
+                </div>
+                <div id="page-footer"></div>
+            </main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
+    <script src="/scripts/extras.1.3.1.min.js"></script>
+
+    <script src="/js/const.js"></script>
+    <script src="/js/utility.js"></script>
+    <script src="/js/webUtility.js"></script>
+    <script src="/js/FtpSite.js"></script>
+    <script language="javascript">
+        // 放入資料
+        new FtpSites().GetFtpSites();
+    </script>
+</body>
+</html>

@@ -10,7 +10,9 @@ namespace PaaSAdmin.Code
     {
         Success,
         Fail,
-
+        FtpAccountIsExits,
+        WebSiteIsExits,
+        BindingIsExits,
 
         Exception,
     }

@@ -68,6 +68,16 @@
           <Property Name="TotalGB" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="UsageGB" Type="decimal" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="PaaSFtpSites">
+          <Key>
+            <PropertyRef Name="PaaSFtpSitesId" />
+          </Key>
+          <Property Name="PaaSFtpSitesId" Type="bigint" Nullable="false" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PhysicalPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityType Name="PaaSWebSites">
           <Key>
             <PropertyRef Name="IISWebSitesId" />
@@ -94,6 +104,7 @@
           <EntitySet Name="PaaSDeviceHealthCpu" EntityType="Self.PaaSDeviceHealthCpu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaaSDeviceHealthDisk" EntityType="Self.PaaSDeviceHealthDisk" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaaSDeviceHealthMemory" EntityType="Self.PaaSDeviceHealthMemory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaaSFtpSites" EntityType="Self.PaaSFtpSites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaaSWebSites" EntityType="Self.PaaSWebSites" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -127,6 +138,7 @@
           <EntitySet Name="PaaSDeviceHealthCpu" EntityType="PaaSAdminDbModel.PaaSDeviceHealthCpu" />
           <EntitySet Name="PaaSDeviceHealthDisk" EntityType="PaaSAdminDbModel.PaaSDeviceHealthDisk" />
           <EntitySet Name="PaaSDeviceHealthMemory" EntityType="PaaSAdminDbModel.PaaSDeviceHealthMemory" />
+          <EntitySet Name="PaaSFtpSites" EntityType="PaaSAdminDbModel.PaaSFtpSites" />
         </EntityContainer>
         <EntityType Name="PaaSConfig">
           <Key>
@@ -190,6 +202,16 @@
           <Property Name="PaaSDeviceHealthId" Type="Int64" Nullable="false" />
           <Property Name="TotalGB" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="UsageGB" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="PaaSFtpSites">
+          <Key>
+            <PropertyRef Name="PaaSFtpSitesId" />
+          </Key>
+          <Property Name="PaaSFtpSitesId" Type="Int64" Nullable="false" />
+          <Property Name="Product" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -283,6 +305,17 @@
                 <ScalarProperty Name="TotalGB" ColumnName="TotalGB" />
                 <ScalarProperty Name="PaaSDeviceHealthId" ColumnName="PaaSDeviceHealthId" />
                 <ScalarProperty Name="PaaSDeviceHealthMemoryId" ColumnName="PaaSDeviceHealthMemoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaaSFtpSites">
+            <EntityTypeMapping TypeName="PaaSAdminDbModel.PaaSFtpSites">
+              <MappingFragment StoreEntitySet="PaaSFtpSites">
+                <ScalarProperty Name="PhysicalPath" ColumnName="PhysicalPath" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="PaaSFtpSitesId" ColumnName="PaaSFtpSitesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

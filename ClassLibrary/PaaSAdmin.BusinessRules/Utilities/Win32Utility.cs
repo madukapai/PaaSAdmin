@@ -66,7 +66,7 @@ namespace PaaSAdmin.BusinessRules.Utilities
         /// <returns></returns>
         internal bool DeleteAccount(string strAccount)
         {
-            bool blIsSuccess = false;
+            bool blIsSuccess = true;
 
             // 確認帳號是否存在
             string strADPath = "WinNT://" + Environment.MachineName;

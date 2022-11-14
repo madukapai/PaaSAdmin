@@ -135,10 +135,14 @@
     <Content Include="js\login.js" />
     <Content Include="js\menu.js" />
     <Content Include="js\utility.js" />
+    <Content Include="js\FtpSite.js" />
     <Content Include="js\WebSite.js" />
     <Content Include="js\webUtility.js" />
     <Content Include="main.html" />
+    <Content Include="Page\Application\FtpSitesCreate.html" />
+    <Content Include="Page\Application\FtpSitesEdit.html" />
     <Content Include="Page\Application\WebSitesEdit.html" />
+    <Content Include="Page\Application\FtpSitesList.html" />
     <Content Include="Page\Application\WebSitesList.html" />
     <Content Include="Page\Application\WebSitesCreate.html" />
     <Content Include="scripts\app\app-analytics-overview.1.3.1.js" />
@@ -250,6 +254,7 @@
     <Compile Include="Controllers\AuthorizeController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\EndPointController.cs" />
+    <Compile Include="Controllers\FtpSitesController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\WebSitesController.cs" />
     <Compile Include="Global.asax.cs">

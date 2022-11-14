@@ -111,3 +111,23 @@ CREATE SEQUENCE PaaSDeviceHealthCpuId AS BIGINT START WITH 0 INCREMENT BY 1 NO C
 CREATE SEQUENCE PaaSDeviceHealthDiskId AS BIGINT START WITH 0 INCREMENT BY 1 NO CYCLE NO CACHE
 CREATE SEQUENCE PaaSDeviceHealthMemoryId AS BIGINT START WITH 0 INCREMENT BY 1 NO CYCLE NO CACHE
 GO
+
+
+CREATE TABLE [dbo].[PaaSFtpSites](
+	[PaaSFtpSitesId] [bigint] NOT NULL,
+	[FtpSiteName] [nvarchar](50) NOT NULL,
+	[Product] [nvarchar](50) NOT NULL,
+	[UserName] [nvarchar](50) NOT NULL,
+	[UserPassword] [nvarchar](500) NOT NULL,
+	[PhysicalPath] [nvarchar](200) NOT NULL,
+ CONSTRAINT [PK_PaaSFtpSites] PRIMARY KEY CLUSTERED 
+(
+	[PaaSFtpSitesId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE SEQUENCE [PaaSFtpSitesId] AS BIGINT START WITH 0 INCREMENT BY 1 NO CYCLE NO CACHE
+GO
+
+Insert Into [PaaSWebSites] Values (Next Value for IISWebSitesId, 'PaaSAdmin', 'PaaSAdmin', 88, '', '', 'PaaSAdmin', 'PaaSAdmin', '\PaaSAdmin', 0, 1, 60, 'v4.0', 0)
